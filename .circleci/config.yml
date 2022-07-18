@@ -23,12 +23,19 @@ jobs:
             | awk '{printf "\"%s\" ", $0}' \
             | xargs -0 -I {} sh -c 'cue export {} --out yaml' \
             | tee .circleci/generated_config.yml
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .circleci/generated_config.yml
 
 workflows:
   setup-workflow:
     jobs:
       - generate-config
       - path-filtering/filter:
+          pre-steps:
+            - attach_workspace:
+                at: .
           config-path: .circleci/generated_config.yml
           mapping: |
             service1/.* build-service1 true
