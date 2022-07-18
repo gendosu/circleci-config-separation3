@@ -33,9 +33,7 @@ workflows:
     jobs:
       - generate-config
       - path-filtering/filter:
-          pre-steps:
-            - attach_workspace:
-                at: .
+          workspace_path: .
           config-path: .circleci/generated_config.yml
           mapping: |
             service1/.* build-service1 true
