@@ -12,6 +12,6 @@ jobs:
 
 workflows:
   service2-say-hello-workflow:
-    when: << pipeline.parameters.build-service1 >>
+    when: << pipeline.parameters.build-service2 >>
     jobs:
       - service2-say-hello
