@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+  noop:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - run:
+          name: "No operation"
+          command: echo "No operation"
+
+workflows:
+  noop:
+    when:
+      and:
+        - not: << pipeline.parameters.build-service1 >>
+        - not: << pipeline.parameters.build-service2 >>
+    jobs:
+      - noop

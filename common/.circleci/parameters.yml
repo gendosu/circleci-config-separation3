@@ -1,0 +1,9 @@
+version: 2.1
+
+parameters:
+  build-service1:
+    type: boolean
+    default: false
+  build-service2:
+    type: boolean
+    default: false
