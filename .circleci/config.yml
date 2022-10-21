@@ -43,16 +43,13 @@ jobs:
             `grep "^service1/.*.txt" /tmp/.circleci/diff.log | wc -l && true` > /tmp/.circleci/gentest2
             echo $GENTEST1
             cat gentest
+            echo "{ \"gentest\": \"`cat /tmp/.circleci/gentest2`\" }" >> /tmp/.circleci/test.json
+            cat /tmp/.circleci/test.json
             exit 0
       - persist_to_workspace:
           root: /tmp
           paths:
             - .circleci
-      - run:
-          name: test
-          command: |
-            echo "{ \"gentest\": \"`cat /tmp/.circleci/gentest2`\" }" >> /tmp/.circleci/test.json
-            cat /tmp/.circleci/test.json
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
           parameters: /tmp/.circleci/test.json
