@@ -3,7 +3,7 @@ version: 2.1
 setup: true
 
 orbs:
-  path-filtering: gendosu/path-filtering-orb@dev:first
+  path-filtering: gendosu/path-filtering-orb@0.0.1
 
 jobs:
   generate-config:
