@@ -69,7 +69,7 @@ jobs:
       - run:
           name: Generate config
           command: |
-            cat .circleci/diff.log
+            cat /tmp/.circleci/diff.log
 workflows:
   setup-workflow:
     jobs:
