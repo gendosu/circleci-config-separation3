@@ -51,7 +51,7 @@ jobs:
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
           parameters: /tmp/.circleci/test.json
-          pre-steps:
+          pre-step:
             - run:
                 command: |
                   export TEST_ENV="hello world"
