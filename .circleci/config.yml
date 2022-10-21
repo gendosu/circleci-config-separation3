@@ -32,6 +32,10 @@ jobs:
             | awk '{printf "\"%s\" ", $0}' \
             | xargs -0 -I {} sh -c 'cue export {} --out yaml' \
             | tee .circleci/generated_config.yml
+      - run:
+          name: ls
+          command: |
+            ls -l .circleci
       - persist_to_workspace:
           root: .
           paths:
