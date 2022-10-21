@@ -40,9 +40,9 @@ jobs:
             ls -la /tmp/.circleci
             cat /tmp/.circleci/diff.log
             export GENTEST1=`grep "^service2/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
-            export GENTEST2=`grep "^service1/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
+            `grep "^service1/.*.txt" /tmp/.circleci/diff.log | wc -l && true` > /tmp/.circleci/gentest2
             echo $GENTEST1
-            echo $GENTEST2
+            cat gentest
             exit 0
       - persist_to_workspace:
           root: /tmp
@@ -51,7 +51,7 @@ jobs:
       - run:
           name: test
           command: |
-            echo '{ "gentest": "'$GENTEST2'" }' >> /tmp/.circleci/test.json
+            echo '{ "gentest": "`cat /tmp/.circleci/gentest2" }' >> /tmp/.circleci/test.json
             cat /tmp/.circleci/test.json
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
