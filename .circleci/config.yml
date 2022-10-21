@@ -55,6 +55,11 @@ jobs:
           at: .circleci/diff.log
 
       - run:
+          name: ls
+          command: |
+            ls -l .circleci
+
+      - run:
           name: Generate config
           command: |
             cat .circleci/diff.log
