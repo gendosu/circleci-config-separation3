@@ -19,6 +19,7 @@ jobs:
       - run:
           name: test
           command: |
+            mkdir -p /tmp/.circleci
             git diff --name-only origin/main origin/<< pipeline.git.branch >> | tee /tmp/.circleci/diff.log
       - run:
           name: Generate config list
