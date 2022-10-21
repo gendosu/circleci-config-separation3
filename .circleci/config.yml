@@ -62,7 +62,7 @@ workflows:
   setup-workflow:
     jobs:
       - generate-config
-      - generate-check
+      - generate-check:
           requires:
             - generate-config
         # gentest: $GENTESTENV
