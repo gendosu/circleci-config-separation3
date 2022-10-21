@@ -6,6 +6,10 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
+          name: echo
+          command: |
+            echo "<< pipeline.parameters.gentest >>"
+      - run:
           name: "No operation"
           command: echo "No operation"
 
