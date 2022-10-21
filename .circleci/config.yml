@@ -50,8 +50,12 @@ jobs:
             - .circleci
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
-          parameters: |
-            { "gentest": $GENTEST2 }
+          parameters: /tmp/.circleci/test.json
+          pre-steps:
+            - run:
+                command: |
+                  export TEST_ENV="hello world"
+                  echo '{ "gentest": "'$GENTEST2'" }' >> /tmp/.circleci/test.json
 
   generate-check:
     parameters:
