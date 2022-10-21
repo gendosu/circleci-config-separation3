@@ -24,7 +24,7 @@ jobs:
             git diff --name-only origin/main origin/<< pipeline.git.branch >> | tee /tmp/.circleci/diff.log
             export SERVICE1=`grep "^service1/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
             export SERVICE2=`grep "^service2/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
-            echo "{ \"build-service1\": \"$SERVICE1\", \"build-service2\": \"$SERVICE2\" }" >> /tmp/.circleci/test.json
+            echo "{ \"build-service1\": $SERVICE1, \"build-service2\": $SERVICE2 }" >> /tmp/.circleci/test.json
             cat /tmp/.circleci/test.json
             exit 0
       - run:
