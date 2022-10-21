@@ -91,9 +91,9 @@ workflows:
   setup-workflow:
     jobs:
       - generate-config
-      - generate-check:
-          requires:
-            - generate-config
+      # - generate-check:
+      #     requires:
+      #       - generate-config
         # gentest: $GENTESTENV
       # - path-filtering-orb/filter:
       #     workspace_path: .
