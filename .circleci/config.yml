@@ -3,7 +3,7 @@ version: 2.1
 setup: true
 
 orbs:
-  path-filtering: gendosu/path-filtering-orb@0.0.1
+  path-filtering: gendosu/path-filtering-orb@dev:first
 
 jobs:
   generate-config:
@@ -32,7 +32,7 @@ workflows:
   setup-workflow:
     jobs:
       - generate-config
-      - path-filtering/filter:
+      - path-filtering-orb/filter:
           workspace_path: .
           config-path: .circleci/generated_config.yml
           mapping: |
