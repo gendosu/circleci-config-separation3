@@ -17,7 +17,9 @@ workflows:
   noop:
     when:
       and:
-        - not: << pipeline.parameters.build-service1 >>
-        - not: << pipeline.parameters.build-service2 >>
+        - not:
+          equal: ["0", << pipeline.parameters.build-service1 >>]
+        - not:
+          equal: ["0", << pipeline.parameters.build-service2 >>]
     jobs:
       - noop
