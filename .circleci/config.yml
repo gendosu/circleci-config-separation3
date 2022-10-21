@@ -41,6 +41,8 @@ jobs:
             cat /tmp/.circleci/diff.log
             GENTEST1=`grep "^service2/.*.txt" /tmp/.circleci/diff.log && true`
             GENTEST2=`grep "^service1/.*.txt" /tmp/.circleci/diff.log && true`
+            echo $GENTEST1
+            echo $GENTEST2
             exit 0
       - persist_to_workspace:
           root: /tmp
