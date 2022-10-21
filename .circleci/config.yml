@@ -63,8 +63,8 @@ jobs:
           name: ls
           command: |
             pwd
-            cd /tmp
-            ls -l
+            cd /tmp/.circleci
+            ls -la
 
       - run:
           name: Generate config
