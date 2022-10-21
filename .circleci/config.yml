@@ -59,7 +59,7 @@ workflows:
     jobs:
       - generate-config
       - generate-check
-        - gentest: $GENTESTENV
+        gentest: $GENTESTENV
       # - path-filtering-orb/filter:
       #     workspace_path: .
       #     config-path: .circleci/generated_config.yml
