@@ -45,7 +45,7 @@ jobs:
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
           parameters: |
-            { "gentest": "${grep "^service1/.*/spec/.*.rb" .circleci/diff.log | wc -l}" }
+            { "gentest": "`grep "^service1/.*/spec/.*.rb" .circleci/diff.log | wc -l`" }
 
   generate-check:
     parameters:
