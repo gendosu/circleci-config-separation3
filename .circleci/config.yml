@@ -36,6 +36,7 @@ jobs:
       - run:
           name: ls
           command: |
+            set +e
             ls -la /tmp/.circleci
             cat /tmp/.circleci/diff.log
             grep "^service1/.*.txt" /tmp/.circleci/diff.log
