@@ -35,8 +35,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - .circleci/generated_config.yml
-            - .circleci/diff.log
+            - .circleci
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
 
@@ -52,7 +51,7 @@ jobs:
     steps:
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: .circleci/diff.log
+          at: .circleci
 
       - run:
           name: ls
