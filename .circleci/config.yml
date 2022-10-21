@@ -13,6 +13,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: setenv
+          command: |
+            export GENTESTENV=gentestvalue
+      - run:
           name: test
           command: |
             git diff --name-only origin/main origin/<< pipeline.git.branch >> | tee .circleci/diff.log
@@ -36,10 +40,26 @@ jobs:
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
 
+  generate-check:
+    parameters:
+      gentest:
+        description: gentest
+        type: string
+        default: docs
+
+    docker:
+      - image: bufferings/cimg-cue
+    steps:
+      - run:
+          name: Generate config
+          command: |
+            echo << paramegers.gentest >>
 workflows:
   setup-workflow:
     jobs:
       - generate-config
+      - generate-check
+        - gentest: $GENTESTENV
       # - path-filtering-orb/filter:
       #     workspace_path: .
       #     config-path: .circleci/generated_config.yml
