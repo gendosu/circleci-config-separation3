@@ -14,7 +14,7 @@ jobs:
       - run:
           name: test
           command: |
-            git diff --name-only origin/master origin/<< pipeline.git.branch >>
+            git diff --name-only origin/main origin/<< pipeline.git.branch >>
       # - run:
       #     name: Generate config list
       #     command: |
