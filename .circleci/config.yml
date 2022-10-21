@@ -17,10 +17,16 @@ jobs:
           command: |
             export GENTESTENV=gentestvalue
       - run:
-          name: test
+          name: Generate conditions
           command: |
+            set +e
             mkdir -p /tmp/.circleci
             git diff --name-only origin/main origin/<< pipeline.git.branch >> | tee /tmp/.circleci/diff.log
+            export SERVICE1=`grep "^service1/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
+            export SERVICE2=`grep "^service2/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
+            echo "{ \"SERVICE1\": \"$SERVICE1\", \"SERVICE2\": \"$SERVICE2\" }" >> /tmp/.circleci/test.json
+            cat /tmp/.circleci/test.json
+            exit 0
       - run:
           name: Generate config list
           command: |
@@ -33,19 +39,6 @@ jobs:
             | awk '{printf "\"%s\" ", $0}' \
             | xargs -0 -I {} sh -c 'cue export {} --out yaml' \
             | tee .circleci/generated_config.yml
-      - run:
-          name: ls
-          command: |
-            set +e
-            ls -la /tmp/.circleci
-            cat /tmp/.circleci/diff.log
-            export GENTEST1=`grep "^service1/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
-            export GENTEST2=`grep "^service2/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
-            echo $GENTEST1
-            echo $GENTEST2
-            echo "{ \"gentest\": \"$GENTEST2\" }" >> /tmp/.circleci/test.json
-            cat /tmp/.circleci/test.json
-            exit 0
       - persist_to_workspace:
           root: /tmp
           paths:
