@@ -43,7 +43,7 @@ jobs:
             export GENTEST2=`grep "^service2/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
             echo $GENTEST1
             echo $GENTEST2
-            echo "{ \"gentest\": \"`cat /tmp/.circleci/gentest2`\" }" >> /tmp/.circleci/test.json
+            echo "{ \"gentest\": \"$GENTEST2\" }" >> /tmp/.circleci/test.json
             cat /tmp/.circleci/test.json
             exit 0
       - persist_to_workspace:
