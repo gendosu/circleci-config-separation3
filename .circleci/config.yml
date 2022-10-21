@@ -56,14 +56,14 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          # Must be absolute path or relative path from working_directory
           at: /tmp/workspace
 
       - run:
           name: ls
           command: |
             pwd
-            ls -l /tmp/workspace
+            cd /tmp/workspace
+            ls -l
 
       - run:
           name: Generate config
