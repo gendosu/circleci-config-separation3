@@ -39,8 +39,9 @@ jobs:
             set +e
             ls -la /tmp/.circleci
             cat /tmp/.circleci/diff.log
-            grep "^service1/.*.txt" /tmp/.circleci/diff.log && true
             grep "^service2/.*.txt" /tmp/.circleci/diff.log && true
+            grep "^service1/.*.txt" /tmp/.circleci/diff.log && true
+            exit 0
       - persist_to_workspace:
           root: /tmp
           paths:
