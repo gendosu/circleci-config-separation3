@@ -35,6 +35,7 @@ jobs:
       - run:
           name: ls
           command: |
+            pwd
             ls -l .circleci
       - persist_to_workspace:
           root: .
@@ -60,6 +61,7 @@ jobs:
       - run:
           name: ls
           command: |
+            pwd
             ls -l .circleci
 
       - run:
