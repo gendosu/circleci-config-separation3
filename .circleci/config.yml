@@ -44,7 +44,7 @@ jobs:
             - .circleci
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
-          paramaters: |
+          parameters: |
             { "gentest": "aaa" }
 
   generate-check:
@@ -74,9 +74,9 @@ jobs:
             cat /tmp/.circleci/diff.log
 
       - run:
-          name: cat paramaters
+          name: cat parameters
           command: |
-            echo "<< paramaters.gentest >>"
+            echo "<< parameters.gentest >>"
 
 workflows:
   setup-workflow:
