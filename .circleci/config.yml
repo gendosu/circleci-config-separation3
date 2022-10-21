@@ -42,7 +42,7 @@ jobs:
             export GENTEST1=`grep "^service2/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
             `grep "^service1/.*.txt" /tmp/.circleci/diff.log | wc -l && true` > /tmp/.circleci/gentest2
             echo $GENTEST1
-            cat gentest
+            cat /tmp/.circleci/gentest2
             echo "{ \"gentest\": \"`cat /tmp/.circleci/gentest2`\" }" >> /tmp/.circleci/test.json
             cat /tmp/.circleci/test.json
             exit 0
