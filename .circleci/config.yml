@@ -14,23 +14,26 @@ jobs:
       - run:
           name: test
           command: |
-            git diff --name-only origin/main origin/<< pipeline.git.branch >>
-      # - run:
-      #     name: Generate config list
-      #     command: |
-      #       find . -type f -regex '.*/\.circleci/.*\.yml' -not -regex '\./\.circleci/config\.yml' \
-      #       | tee .circleci/config-list.txt
-      # - run:
-      #     name: Generate config
-      #     command: |
-      #       cat .circleci/config-list.txt \
-      #       | awk '{printf "\"%s\" ", $0}' \
-      #       | xargs -0 -I {} sh -c 'cue export {} --out yaml' \
-      #       | tee .circleci/generated_config.yml
-      # - persist_to_workspace:
-      #     root: .
-      #     paths:
-      #       - .circleci/generated_config.yml
+            git diff --name-only origin/main origin/<< pipeline.git.branch >> | tee .circleci/diff.log
+      - run:
+          name: Generate config list
+          command: |
+            find . -type f -regex '.*/\.circleci/.*\.yml' -not -regex '\./\.circleci/config\.yml' \
+            | tee .circleci/config-list.txt
+      - run:
+          name: Generate config
+          command: |
+            cat .circleci/config-list.txt \
+            | awk '{printf "\"%s\" ", $0}' \
+            | xargs -0 -I {} sh -c 'cue export {} --out yaml' \
+            | tee .circleci/generated_config.yml
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .circleci/generated_config.yml
+            - .circleci/diff.log
+      - continuation/continue:
+          configuration_path: .circleci/generated_config.yml # use newly generated config to continue
 
 workflows:
   setup-workflow:
