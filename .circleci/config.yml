@@ -76,7 +76,7 @@ jobs:
       - run:
           name: cat paramagers
           command: |
-            echo "<< paramagers.gentest >>"
+            echo "<< paramaters.gentest >>"
 
 workflows:
   setup-workflow:
