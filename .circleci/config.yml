@@ -24,8 +24,7 @@ jobs:
             git diff --name-only origin/main origin/<< pipeline.git.branch >> | tee /tmp/.circleci/diff.log
             export SERVICE1=`grep "^service1/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
             export SERVICE2=`grep "^service2/.*.txt" /tmp/.circleci/diff.log | wc -l && true`
-            echo "{ \"build-service1\": $SERVICE1, \"build-service2\": $SERVICE2 }" >> /tmp/.circleci/test.json
-            cat /tmp/.circleci/test.json
+            echo "{ \"build-service1\": $SERVICE1, \"build-service2\": $SERVICE2 }" >> /tmp/.circleci/parameters.json
             exit 0
       - run:
           name: Generate config list
@@ -44,53 +43,10 @@ jobs:
           paths:
             - .circleci
       - continuation/continue:
-          configuration_path: .circleci/generated_config.yml # use newly generated config to continue
-          parameters: /tmp/.circleci/test.json
-
-  generate-check:
-    parameters:
-      gentest:
-        description: gentest
-        type: string
-        default: docs
-
-    docker:
-      - image: bufferings/cimg-cue
-    steps:
-      - checkout
-      - attach_workspace:
-          at: /tmp
-
-      - run:
-          name: ls
-          command: |
-            pwd
-            cd /tmp/.circleci
-            ls -la
-
-      - run:
-          name: when test
-          command: |
-            cat /tmp/.circleci/diff.log
-
-      - run:
-          name: cat parameters
-          command: |
-            echo "<< parameters.gentest >>"
+          configuration_path: .circleci/generated_config.yml
+          parameters: /tmp/.circleci/parameters.json
 
 workflows:
   setup-workflow:
     jobs:
       - generate-config
-      # - generate-check:
-      #     requires:
-      #       - generate-config
-        # gentest: $GENTESTENV
-      # - path-filtering-orb/filter:
-      #     workspace_path: .
-      #     config-path: .circleci/generated_config.yml
-      #     mapping: |
-      #       service1/.* build-service1 true
-      #       service2/.* build-service2 true
-      #     requires:
-      #       - generate-config
