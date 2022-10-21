@@ -7,3 +7,6 @@ parameters:
   build-service2:
     type: boolean
     default: false
+  gentest:
+    type: string
+    default: default
