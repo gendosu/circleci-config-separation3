@@ -57,13 +57,13 @@ jobs:
       - checkout
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
-          at: .circleci
+          at: /tmp/workspace
 
       - run:
           name: ls
           command: |
             pwd
-            ls -l .circleci
+            ls -l /tmp/workspace
 
       - run:
           name: Generate config
