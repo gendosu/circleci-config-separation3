@@ -19,7 +19,7 @@ jobs:
       - run:
           name: test
           command: |
-            git diff --name-only origin/main origin/<< pipeline.git.branch >> | tee .circleci/diff.log
+            git diff --name-only origin/main origin/<< pipeline.git.branch >> | tee /tmp/.circleci/diff.log
       - run:
           name: Generate config list
           command: |
@@ -38,7 +38,7 @@ jobs:
             pwd
             ls -l .circleci
       - persist_to_workspace:
-          root: /home/circleci/project
+          root: /tmp
           paths:
             - .circleci
       # - continuation/continue:
@@ -56,13 +56,13 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /tmp/workspace
+          at: /tmp/.circleci
 
       - run:
           name: ls
           command: |
             pwd
-            cd /home/circleci/project/.circleci
+            cd /tmp
             ls -l
 
       - run:
