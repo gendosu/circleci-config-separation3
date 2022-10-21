@@ -36,9 +36,7 @@ jobs:
       - run:
           name: ls
           command: |
-            pwd
-            ls -l /tmp/.circleci
-            grep "^service1/.*/spec/.*.rb" /tmp/.circleci/diff.log | wc -l
+            grep "^service1/.*/spec/.*.rb" /tmp/.circleci/diff.log
       - persist_to_workspace:
           root: /tmp
           paths:
