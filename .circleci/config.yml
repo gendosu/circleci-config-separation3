@@ -39,8 +39,8 @@ jobs:
             set +e
             ls -la /tmp/.circleci
             cat /tmp/.circleci/diff.log
-            grep "^service2/.*.txt" /tmp/.circleci/diff.log && true
-            grep "^service1/.*.txt" /tmp/.circleci/diff.log && true
+            GENTEST1=`grep "^service2/.*.txt" /tmp/.circleci/diff.log && true`
+            GENTEST2=`grep "^service1/.*.txt" /tmp/.circleci/diff.log && true`
             exit 0
       - persist_to_workspace:
           root: /tmp
@@ -49,7 +49,7 @@ jobs:
       - continuation/continue:
           configuration_path: .circleci/generated_config.yml # use newly generated config to continue
           parameters: |
-            { "gentest": "$GENTEST" }
+            { "gentest": "$GENTEST2" }
 
   generate-check:
     parameters:
