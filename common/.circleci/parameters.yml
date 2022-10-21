@@ -2,10 +2,10 @@ version: 2.1
 
 parameters:
   build-service1:
-    type: boolean
+    type: integer
     default: false
   build-service2:
-    type: boolean
+    type: integer
     default: false
   gentest:
     type: string
