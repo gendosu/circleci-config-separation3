@@ -50,10 +50,14 @@ jobs:
     docker:
       - image: bufferings/cimg-cue
     steps:
+      - attach_workspace:
+          # Must be absolute path or relative path from working_directory
+          at: .circleci/diff.log
+
       - run:
           name: Generate config
           command: |
-            echo << paramegers.gentest >>
+            cat .circleci/diff.log
 workflows:
   setup-workflow:
     jobs:
