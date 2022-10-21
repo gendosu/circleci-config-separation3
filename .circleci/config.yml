@@ -62,7 +62,7 @@ jobs:
           name: ls
           command: |
             pwd
-            cd /tmp/workspace
+            cd /home/circleci/project/.circleci
             ls -l
 
       - run:
